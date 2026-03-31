@@ -19,20 +19,22 @@ $logged_in = isset($_SESSION['username']);
   <title>Dashboard Kampus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {margin:0;font-family:Arial, sans-serif;}
-    .navbar {background:#fff;padding:10px;border-bottom:1px solid #ccc;}
+    body {margin:0;font-family:Arial, sans-serif;background:#f4f6f9;}
+    .navbar {background:#fff;padding:10px;border-bottom:1px solid #ccc;position:fixed;top:0;left:220px;right:0;}
     .navbar a {margin-right:15px;text-decoration:none;color:#333;}
-    .sidebar {position:fixed;top:0;left:0;width:220px;height:100%;background:#222;color:#fff;padding-top:60px;}
+    .sidebar {position:fixed;top:0;left:0;width:220px;height:100%;background:#343a40;color:#fff;}
+    .sidebar h2 {padding:15px;margin:0;font-size:18px;background:#23272b;}
     .sidebar a {display:block;padding:10px 20px;color:#ccc;text-decoration:none;}
-    .sidebar a:hover {background:#444;color:#fff;}
-    .content {margin-left:220px;padding:20px;}
-    .card {background:#fff;border:1px solid #ddd;border-radius:4px;padding:20px;margin-bottom:20px;}
-    footer {background:#f4f4f4;text-align:center;padding:10px;position:fixed;bottom:0;left:220px;right:0;}
+    .sidebar a:hover {background:#495057;color:#fff;}
+    .content {margin-left:220px;padding:80px 20px 60px;}
+    .card {background:#fff;border:1px solid #ddd;border-radius:4px;padding:20px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+    footer {background:#fff;text-align:center;padding:10px;border-top:1px solid #ccc;position:fixed;bottom:0;left:220px;right:0;}
     h1,h4 {margin-top:0;}
-    table {width:100%;border-collapse:collapse;}
+    table {width:100%;border-collapse:collapse;margin-top:10px;}
     th,td {border:1px solid #ccc;padding:8px;text-align:left;}
     th {background:#eee;}
     select {width:100%;}
+    input,button {padding:8px;margin:5px 0;}
   </style>
 </head>
 <body>
@@ -42,9 +44,9 @@ $logged_in = isset($_SESSION['username']);
   <div class="card" style="max-width:400px;margin:50px auto;">
     <h2>Login Sistem Kampus</h2>
     <form method="post" action="index.php">
-      <div><input type="text" name="username" placeholder="Username" style="width:100%;padding:8px;margin-bottom:10px;"></div>
-      <div><input type="password" name="password" placeholder="Password" style="width:100%;padding:8px;margin-bottom:10px;"></div>
-      <div><button type="submit" name="login" style="padding:10px 20px;">Login</button></div>
+      <div><input type="text" name="username" placeholder="Username" style="width:100%;"></div>
+      <div><input type="password" name="password" placeholder="Password" style="width:100%;"></div>
+      <div><button type="submit" name="login">Login</button></div>
     </form>
   </div>
 </div>
@@ -57,6 +59,8 @@ $logged_in = isset($_SESSION['username']);
 </div>
 
 <div class="sidebar">
+  <h2>Kampus XYZ</h2>
+  <a href="index.php">Dashboard</a>
   <a href="index.php?page=mapel">Master - Mata Kuliah</a>
   <a href="index.php?page=guru">Master - Dosen</a>
   <a href="index.php?page=mahasiswa">Master - Mahasiswa</a>
@@ -64,7 +68,7 @@ $logged_in = isset($_SESSION['username']);
   <a href="index.php?page=jadwal">Transaksi - Jadwal Kuliah</a>
   <a href="index.php?page=akses_guru">Akses Dosen</a>
   <a href="index.php?page=akses_siswa">Akses Mahasiswa</a>
-  <a href="http://localhost/phpmyadmin/index.php?route=/export" target="_blank">Database Export</a>
+  <a href="#">Database Export</a>
 </div>
 
 <div class="content">
@@ -82,10 +86,10 @@ $logged_in = isset($_SESSION['username']);
         echo "</table>";
     } elseif ($page == "jadwal") {
         echo "<h4>Jadwal Kuliah</h4><table><tr><th>No</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th><th>Kelas</th><th>Hari, Jam</th><th>Ruang</th><th>Dosen</th></tr>
-        <tr><td>1</td><td>IT202</td><td>Kalkulus 2</td><td>3</td><td>TI2A</td><td>Senin, 08:00–09:30</td><td>2.2.4</td><td>R. Burham I. F.</td></tr>
-        <tr><td>2</td><td>IF901</td><td>Algoritma dan Struktur Data</td><td>4</td><td>TI2A</td><td>Senin, 13:00–16:30</td><td>LAB 3</td><td>Elza Budi Perkasa</td></tr>
+        <tr><td>1</td><td>IT202</td><td>Kalkulus 2</td><td>3</td><td>TI2A</td><td>Senin, 08:00–09:30</td><td>2.2.4</td><td>R. Burham</td></tr>
+        <tr><td>2</td><td>IF901</td><td>Algoritma dan Struktur Data</td><td>4</td><td>TI2A</td><td>Senin, 13:00–16:30</td><td>LAB 3</td><td>Elza Budi</td></tr>
         <tr><td>3</td><td>IT311</td><td>Pemrograman Web Terstruktur</td><td>3</td><td>TI2A</td><td>Selasa, 13:00–15:30</td><td>LAB 3</td><td>Delpiah W.</td></tr>
-        <tr><td>4</td><td>IT305</td><td>Sistem Manajemen Basis Data</td><td>3</td><td>TI2A</td><td>Rabu, 08:00–09:30</td><td>2.2.4</td><td>Metde Suci M.</td></tr>
+        <tr><td>4</td><td>IT305</td><td>Sistem Manajemen Basis Data</td><td>3</td><td>TI2A</td><td>Rabu, 08:00–09:30</td><td>2.2.4</td><td>Metde Suci</td></tr>
         <tr><td>5</td><td>IT306</td><td>Desain dan Pemrograman Mobile</td><td>3</td><td>TI2A</td><td>Kamis, 08:00–09:30</td><td>LAB 4</td><td>Rezky Yuanda</td></tr>
         <tr><td>6</td><td>UM301</td><td>English For Business</td><td>3</td><td>TI2A</td><td>Kamis, 13:00–15:30</td><td>2.1.6</td><td>Sintis B.</td></tr>
         <tr><td>7</td><td>MT102</td><td>Agama</td><td>2</td><td>KRT</td><td>Jumat, 13:00–15:30</td><td>1.3.9</td><td>Shio Mulyadanti</td></tr>
