@@ -67,18 +67,22 @@ $logged_in = isset($_SESSION['username']);
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-          <li class="nav-item">
-            <a href="index.php?page=mahasiswa" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Kehadiran Mahasiswa</p>
-            </a>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link"><i class="nav-icon fas fa-book"></i><p>Master<i class="right fas fa-angle-left"></i></p></a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item"><a href="index.php?page=mapel" class="nav-link"><p>Mata Pelajaran</p></a></li>
+              <li class="nav-item"><a href="#" class="nav-link"><p>Guru</p></a></li>
+              <li class="nav-item"><a href="index.php?page=mahasiswa" class="nav-link"><p>Siswa</p></a></li>
+              <li class="nav-item"><a href="#" class="nav-link"><p>Kelas</p></a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a href="index.php?page=jadwal" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Jadwal Kuliah</p>
-            </a>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link"><i class="nav-icon fas fa-calendar"></i><p>Transaksi<i class="right fas fa-angle-left"></i></p></a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item"><a href="index.php?page=jadwal" class="nav-link"><p>Jadwal</p></a></li>
+            </ul>
           </li>
+          <li class="nav-item"><a href="http://localhost/phpmyadmin/index.php?route=/export" target="_blank" class="nav-link"><i class="nav-icon fas fa-database"></i><p>Database Export</p></a></li>
           <li class="nav-item"><a href="index.php?action=logout" class="nav-link"><i class="nav-icon fas fa-sign-out-alt"></i><p>Logout</p></a></li>
         </ul>
       </nav>
@@ -93,49 +97,9 @@ $logged_in = isset($_SESSION['username']);
           <?php
             $page = isset($_GET['page']) ? $_GET['page'] : "";
             if ($page == "") {
-                echo "<p>SELAMAT DATANG DI WEBSITE SEKOLAH</p>";
-            } else if ($page == "mahasiswa") {
-                echo "<h4>Daftar Kehadiran Mahasiswa</h4>";
-                echo "<table class='table table-bordered'>
-                        <thead>
-                          <tr><th>No</th><th>Nama</th><th>Status Kehadiran</th></tr>
-                        </thead><tbody>";
-                for ($i=1; $i<=31; $i++) {
-                    $nama = str_pad($i, 3, '0', STR_PAD_LEFT);
-                    echo "<tr>
-                            <td>$i</td>
-                            <td>$nama</td>
-                            <td>
-                              <select class='form-control'>
-                                <option>Hadir</option>
-                                <option>Izin</option>
-                                <option>Sakit</option>
-                                <option>Alpa</option>
-                              </select>
-                            </td>
-                          </tr>";
-                }
-                echo "</tbody></table>";
-            } else if ($page == "jadwal") {
-                echo "<h4>Jadwal Kuliah</h4>";
-                echo "<table class='table table-striped'>
-                        <thead>
-                          <tr>
-                            <th>No</th><th>Kode</th><th>Matakuliah</th><th>SKS</th>
-                            <th>Kel.</th><th>Hari, Jam</th><th>Ruang</th><th>Pengajar</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr><td>1</td><td>IT202</td><td>Kalkulus 2</td><td>3</td><td>T12A</td><td>Senin, 08:00–09:30</td><td>2.2.4</td><td>R. Burham I. F., S.Si., M.Kom.</td></tr>
-                          <tr><td>2</td><td>IF901</td><td>Algoritma dan Struktur Data</td><td>4</td><td>T12A</td><td>Senin, 13:00–16:30</td><td>LAB 3</td><td>Elza Budi Perkasa, M.Kom.</td></tr>
-                          <tr><td>3</td><td>IT311</td><td>Pemrograman Web Terstruktur</td><td>3</td><td>T12A</td><td>Selasa, 13:00–15:30</td><td>LAB 3</td><td>Delpiah W., S.Kom., M.Kom.</td></tr>
-                          <tr><td>4</td><td>IT305</td><td>Sistem Manajemen Basis Data</td><td>3</td><td>T12A</td><td>Rabu, 08:00–09:30</td><td>2.2.4</td><td>Metde Suci M., M.Kom.</td></tr>
-                          <tr><td>5</td><td>IT306</td><td>Desain dan Pemrograman Mobile</td><td>3</td><td>T12A</td><td>Kamis, 08:00–09:30</td><td>LAB 4</td><td>Rezky Yuanda, M.Kom.</td></tr>
-                          <tr><td>6</td><td>UM301</td><td>English For Business</td><td>3</td><td>T12A</td><td>Kamis, 13:00–15:30</td><td>2.1.6</td><td>Sintis B., S.Pd., M.Pd.</td></tr>
-                          <tr><td>7</td><td>MT102</td><td>Agama</td><td>2</td><td>KRT</td><td>Jumat, 13:00–15:30</td><td>1.3.9</td><td>Shio Mulyadanti, M.Hum.</td></tr>
-                        </tbody>
-                      </table>
-                      <p><strong>Jumlah SKS: 20</strong></p>";
+                include "page/dashboard.php";
+            } else if (file_exists("page/$page.php")) {
+                include "page/$page.php";
             } else {
                 echo "File Tidak Ditemukan";
             }
