@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -20,6 +21,7 @@ $logged_in = isset($_SESSION['username']);
 <head>
   <meta charset="utf-8">
   <title>AdminLTE 3 | Starter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
@@ -90,11 +92,7 @@ $logged_in = isset($_SESSION['username']);
       <div class="card">
         <div class="card-body">
           <?php
-            if (isset($_GET['page'])) {
-                $page = $_GET['page'];
-            } else {
-                $page = "";
-            }
+            $page = isset($_GET['page']) ? $_GET['page'] : "";
             if ($page == "") {
                 echo "<p>SELAMAT DATANG DI WEBSITE SEKOLAH</p>";
             } else if ($page == "mahasiswa") {
