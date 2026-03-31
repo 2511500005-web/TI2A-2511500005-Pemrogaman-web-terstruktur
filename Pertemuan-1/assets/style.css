@@ -2,7 +2,9 @@ body{font-family:Arial;margin:0;}
 .header{background:#3c8dbc;color:#fff;padding:10px;margin-left:200px;}
 .sidebar{position:fixed;width:200px;height:100%;background:#222d32;color:#fff;}
 .sidebar a{display:block;color:#ccc;padding:10px;text-decoration:none;}
+.sidebar a:hover{background:#1e282c;}
 .content{margin-left:200px;padding:20px;}
+.footer{background:#eee;text-align:center;padding:10px;margin-left:200px;}
 table{width:100%;border-collapse:collapse;}
 th,td{border:1px solid black;padding:5px;text-align:center;}
 .login-box{width:300px;margin:100px auto;padding:20px;border:1px solid #ccc;}

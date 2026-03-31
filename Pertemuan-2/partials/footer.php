@@ -1,3 +1,4 @@
+<div class="footer">© 2026</div>
 <script>
 function ubahWarna(s){
 s.classList.remove('hadir','izin','alpa');

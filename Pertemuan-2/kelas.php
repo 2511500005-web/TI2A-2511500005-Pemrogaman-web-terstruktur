@@ -5,7 +5,7 @@ if($_SESSION['role']!="guru") header("Location:dashboard.php"); ?>
 <?php include "partials/header.php"; ?>
 <?php include "partials/sidebar.php"; ?>
 <div class="content">
-<h2>Kelas</h2>
+<h2>Kelas - Absensi</h2>
 <table>
 <tr><th>No</th><th>NIM</th><th>Status</th></tr>
 <?php for($i=1;$i<=31;$i++):
@@ -15,7 +15,7 @@ $nim=str_pad($i,3,"0",STR_PAD_LEFT); ?>
 <td><?= $nim ?></td>
 <td>
 <select onchange="ubahWarna(this)">
-<option></option>
+<option value=""></option>
 <option value="hadir">Hadir</option>
 <option value="izin">Izin</option>
 <option value="alpa">Alpa</option>
