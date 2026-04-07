@@ -70,9 +70,14 @@
       <th>Nama Mahasiswa</th>
       <th>Status Kehadiran</th>
     </tr>
-
+    <!-- Generate 31 baris -->
+    <!-- Status default Hadir -->
+    <!-- Nanti bisa diganti lewat dropdown -->
+    <!-- Contoh baris -->
+    <!-- Gunakan JavaScript untuk update warna -->
+    <!-- Loop manual 31 baris -->
     <tbody id="tabel-body">
-      
+      <!-- Baris akan diisi lewat JS -->
     </tbody>
   </table>
 
@@ -80,21 +85,21 @@
     const tbody = document.getElementById("tabel-body");
     const statusOptions = ["Hadir", "Izin", "Alpa"];
 
-    
+    // Buat 31 baris
     for (let i = 1; i <= 31; i++) {
       const tr = document.createElement("tr");
 
-      
+      // Kolom nomor
       const tdNo = document.createElement("td");
       tdNo.textContent = i;
       tr.appendChild(tdNo);
 
-      
+      // Kolom nama (001, 002, dst)
       const tdNama = document.createElement("td");
       tdNama.textContent = String(i).padStart(3, "0");
       tr.appendChild(tdNama);
 
-      
+      // Kolom status (dropdown)
       const tdStatus = document.createElement("td");
       const select = document.createElement("select");
 
@@ -105,11 +110,11 @@
         select.appendChild(option);
       });
 
-      
+      // Default Hadir
       select.value = "hadir";
       tdStatus.className = "hadir";
 
-      
+      // Event listener untuk ubah warna sesuai pilihan
       select.addEventListener("change", function() {
         tdStatus.className = this.value;
       });
