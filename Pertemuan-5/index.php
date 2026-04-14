@@ -6,9 +6,18 @@ if(isset($_SESSION['login'])){
 }
 
 if(isset($_POST['login'])){
-    $_SESSION['login']=true;
-    $_SESSION['role'] = (strtolower($_POST['username'])=="guru") ? "guru" : "siswa";
-    header("Location: dashboard.php");
+    $user = $_POST['username'];
+    $role = $_POST['role'];
+
+    if(!empty($user)){
+        $_SESSION['login']=true;
+        $_SESSION['username']=$user;
+        $_SESSION['role']=$role;
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        echo "Login gagal";
+    }
 }
 ?>
 
@@ -20,12 +29,20 @@ if(isset($_POST['login'])){
 
 <div class="login-box">
 <h2>Login Bebas</h2>
+
 <form method="POST">
 <input name="username" placeholder="Username"><br>
 <input type="password" name="password" placeholder="Password"><br>
+
+<select name="role">
+  <option value="siswa">Mahasiswa</option>
+  <option value="guru">Guru</option>
+</select><br>
+
 <button name="login">Login</button>
+<button type="button" onclick="alert('Reset password berhasil')">Reset Password</button>
 </form>
-<p>Ketik "guru" untuk akses guru</p>
+
 </div>
 
 </body>
