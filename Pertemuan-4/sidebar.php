@@ -1,4 +1,3 @@
-
 <div class="sidebar">
 <h3>Akses</h3>
 
@@ -6,9 +5,9 @@
 <b>Menu Guru</b>
 <a href="dashboard.php">Dashboard</a>
 <a href="kelas.php">Kelas</a>
-<a href="jadwal.php">Jadwal</a>
+
 <?php else: ?>
-<b>Menu Siswa dan Guru</b>
+<b>Menu Mahasiswa</b>
 <a href="dashboard.php">Dashboard</a>
 <a href="jadwal.php">Jadwal</a>
 <?php endif; ?>
