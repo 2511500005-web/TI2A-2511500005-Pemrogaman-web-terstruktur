@@ -30,11 +30,7 @@ if(!isset($_SESSION['login'])) header("Location:index.php"); ?>
       <tr><th>Agama</th><td>Kristen Protestan</td></tr>
       <tr><th>No WA/HP</th><td>081369255717</td></tr>
       <tr><th>NIK/No KTP</th><td>1971040601060002</td></tr>
-      <tr><th>Alamat Tinggal</th><td>JL MH MUHIDIN, Blok 038, RT 002, RW 001</td></tr>
-      <tr><th>Dusun</th><td>MASJID JAMIK</td></tr>
-      <tr><th>Desa/Kelurahan</th><td>MASJID JAMIK</td></tr>
-      <tr><th>Kecamatan</th><td>KEC. RANGKUI, KOTA PANGKALPINANG</td></tr>
-      <tr><th>Kode Pos</th><td>33132</td></tr>
+      <tr><th>Alamat Tinggal</th><td>JL MH MUHIDIN</td></tr>
     </tbody>
   </table>
 </div>
