@@ -28,7 +28,7 @@ if(isset($_POST['login'])){
 <body class="login-body">
 
 <div class="login-box">
-<h2>Login Bebas</h2>
+<h2>Login</h2>
 
 <form method="POST">
 <input name="username" placeholder="Username"><br>
