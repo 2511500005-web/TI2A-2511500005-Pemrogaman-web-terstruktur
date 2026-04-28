@@ -1,8 +1,46 @@
-<?php include "config.php"; ?>
+<?php
+include "config.php";
+
+$file = "data.json";
+$json = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+
+if(!isset($json['jadwal'])) $json['jadwal'] = [];
+
+if(isset($_POST['tambah'])){
+    $namaFile = "";
+    if($_FILES['materi']['name']!=""){
+        $namaFile = time()."_".$_FILES['materi']['name'];
+        move_uploaded_file($_FILES['materi']['tmp_name'],"uploads/".$namaFile);
+    }
+
+    $json['jadwal'][] = [
+        "kode"=>$_POST['kode'],
+        "matkul"=>$_POST['matkul'],
+        "sks"=>$_POST['sks'],
+        "kelas"=>$_POST['kelas'],
+        "jam"=>$_POST['jam'],
+        "ruang"=>$_POST['ruang'],
+        "pengajar"=>$_POST['pengajar'],
+        "materi"=>$namaFile
+    ];
+
+    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+    header("Location: jadwal.php");
+}
+
+if(isset($_GET['hapus'])){
+    if(isset($json['jadwal'][$_GET['hapus']])){
+        unset($json['jadwal'][$_GET['hapus']]);
+        $json['jadwal'] = array_values($json['jadwal']);
+        file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+    }
+    header("Location: jadwal.php");
+}
+?>
 
 <html>
 <head>
-  <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -12,6 +50,18 @@
 <div class="content">
 <h2>Jadwal Kuliah</h2>
 
+<form method="POST" enctype="multipart/form-data">
+<input name="kode" placeholder="Kode">
+<input name="matkul" placeholder="Mata Kuliah">
+<input name="sks" placeholder="SKS">
+<input name="kelas" placeholder="Kelas">
+<input name="jam" placeholder="Hari/Jam">
+<input name="ruang" placeholder="Ruang">
+<input name="pengajar" placeholder="Pengajar">
+<input type="file" name="materi">
+<button name="tambah">Tambah</button>
+</form>
+
 <table>
 <tr>
 <th>No</th>
@@ -19,92 +69,34 @@
 <th>Mata Kuliah</th>
 <th>SKS</th>
 <th>Kelas</th>
-<th>Hari, Jam</th>
+<th>Hari/Jam</th>
 <th>Ruang</th>
 <th>Pengajar</th>
+<th>File</th>
+<th>Aksi</th>
 </tr>
 
+<?php foreach($json['jadwal'] as $i=>$j): ?>
 <tr>
-<td>1</td>
-<td>IT202</td>
-<td>Kalkulus 2</td>
-<td>3</td>
-<td>TI2A</td>
-<td>Senin, 08:00-10:30</td>
-<td>2.2.4</td>
-<td>R Burham I. F., S.Si., M.Kom</td>
+<td><?= $i+1 ?></td>
+<td><?= $j['kode'] ?></td>
+<td><?= $j['matkul'] ?></td>
+<td><?= $j['sks'] ?></td>
+<td><?= $j['kelas'] ?></td>
+<td><?= $j['jam'] ?></td>
+<td><?= $j['ruang'] ?></td>
+<td><?= $j['pengajar'] ?></td>
+<td>
+<?php if($j['materi']!=""): ?>
+<a href="uploads/<?= $j['materi'] ?>">File</a>
+<?php endif; ?>
+</td>
+<td><a href="?hapus=<?= $i ?>">Hapus</a></td>
 </tr>
-
-<tr>
-<td>2</td>
-<td>IF901</td>
-<td>Algoritma dan Struktur Data</td>
-<td>4</td>
-<td>TI2A</td>
-<td>Senin, 13:00-16:20</td>
-<td>LAB.3</td>
-<td>Eza Budi Perkasa, M.Kom</td>
-</tr>
-
-<tr>
-<td>3</td>
-<td>IT311</td>
-<td>Pemrograman Web Terstruktur</td>
-<td>3</td>
-<td>TI2A</td>
-<td>Selasa, 10:30-13:00</td>
-<td>LAB.3</td>
-<td>Delpiah W., S.Kom., M.Kom</td>
-</tr>
-
-<tr>
-<td>4</td>
-<td>IT305</td>
-<td>Sistem Manajemen Basis Data</td>
-<td>3</td>
-<td>TI2A</td>
-<td>Rabu, 10:30-13:00</td>
-<td>2.2.4</td>
-<td>Melati Suci M., M.Kom</td>
-</tr>
-
-<tr>
-<td>5</td>
-<td>IT306</td>
-<td>Desain dan Pemrograman Mobile</td>
-<td>3</td>
-<td>TI2A</td>
-<td>Kamis, 08:00-10:30</td>
-<td>LAB.4</td>
-<td>Rezky Yuranda, M.Kom</td>
-</tr>
-
-<tr>
-<td>6</td>
-<td>UM301</td>
-<td>English For Business</td>
-<td>2</td>
-<td>TI2A</td>
-<td>Jumat, 08:00-09:40</td>
-<td>1.2.1</td>
-<td>Sinta S., S.Pd., M.Pd</td>
-</tr>
-
-<tr>
-<td>7</td>
-<td>MT102</td>
-<td>Agama</td>
-<td>2</td>
-<td>KRT</td>
-<td>Jumat, 13:50-15:30</td>
-<td>2.1.6</td>
-<td>Shito Mulyatidani, M.Hum</td>
-</tr>
-
+<?php endforeach; ?>
 </table>
 </div>
 
 <?php include "partials/footer.php"; ?>
-
 </body>
 </html>
