@@ -5,6 +5,7 @@
 <b>Menu Guru</b>
 <a href="dashboard.php">Dashboard</a>
 <a href="kelas.php">Kelas</a>
+<a href="jadwal.php">Jadwal</a>
 
 <?php else: ?>
 <b>Menu Mahasiswa</b>
