@@ -82,5 +82,13 @@
             "materi": ""
         }
     ],
-    "ekstra": []
+    "ekstra": [
+        {
+            "id": "2511500005",
+            "nama": "MELVYN",
+            "ket": "SSSSSSSS",
+            "semester": "1",
+            "tahun": "2023"
+        }
+    ]
 }
