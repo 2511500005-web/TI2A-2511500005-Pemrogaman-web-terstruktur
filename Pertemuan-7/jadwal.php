@@ -16,124 +16,218 @@ if(count($json['jadwal']) == 0){
         ["kode"=>"UM301","matkul"=>"English Business","kelas"=>"TI2A","jam"=>"Jumat 08:00-09:40","ruang"=>"1.2.1","pengajar"=>"Sinta S.","materi"=>""],
         ["kode"=>"MT102","matkul"=>"Agama","kelas"=>"KRT","jam"=>"Jumat 13:50-15:30","ruang"=>"2.1.6","pengajar"=>"Shito M.","materi"=>""]
     ];
+
     file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
 }
 
 $edit = "";
-$dataEdit = ["kode"=>"","matkul"=>"","kelas"=>"","jam"=>"","ruang"=>"","pengajar"=>"","materi"=>""];
+$dataEdit = [
+    "kode"=>"",
+    "matkul"=>"",
+    "kelas"=>"",
+    "jam"=>"",
+    "ruang"=>"",
+    "pengajar"=>"",
+    "materi"=>""
+];
 
 if(isset($_GET['edit'])){
     $edit = $_GET['edit'];
+
     if(isset($json['jadwal'][$edit])){
         $dataEdit = $json['jadwal'][$edit];
     }
 }
 
 if(isset($_POST['simpan'])){
+
     $fileMateri = $_POST['old'];
 
-    if($_FILES['materi']['name']!=""){
+    if($_FILES['materi']['name'] != ""){
+
         $fileMateri = time()."_".$_FILES['materi']['name'];
-        move_uploaded_file($_FILES['materi']['tmp_name'],"uploads/".$fileMateri);
+
+        move_uploaded_file(
+            $_FILES['materi']['tmp_name'],
+            "uploads/".$fileMateri
+        );
     }
 
     $data = [
-        "kode"=>$_POST['kode'],
-        "matkul"=>$_POST['matkul'],
-        "kelas"=>$_POST['kelas'],
-        "jam"=>$_POST['jam'],
-        "ruang"=>$_POST['ruang'],
-        "pengajar"=>$_POST['pengajar'],
-        "materi"=>$fileMateri
+        "kode"     => $_POST['kode'],
+        "matkul"   => $_POST['matkul'],
+        "kelas"    => $_POST['kelas'],
+        "jam"      => $_POST['jam'],
+        "ruang"    => $_POST['ruang'],
+        "pengajar" => $_POST['pengajar'],
+        "materi"   => $fileMateri
     ];
 
-    if($_POST['index']==""){
+    if($_POST['index'] == ""){
         $json['jadwal'][] = $data;
     } else {
         $json['jadwal'][$_POST['index']] = $data;
     }
 
     file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+
     header("Location: jadwal.php");
 }
 
 if(isset($_GET['hapus'])){
+
     unset($json['jadwal'][$_GET['hapus']]);
+
     $json['jadwal'] = array_values($json['jadwal']);
+
     file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+
     header("Location: jadwal.php");
 }
 ?>
 
 <html>
 <head>
-<link rel="stylesheet" href="assets/style.css">
+    <title>Jadwal Kuliah</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
 
 <?php include "partials/header.php"; ?>
 <?php include "partials/sidebar.php"; ?>
 
 <div class="content">
-<h2>Jadwal Kuliah</h2>
 
-<h3><?= $edit=="" ? "Tambah Data" : "Edit Data" ?></h3>
+    <h2>Jadwal Kuliah</h2>
 
-<form method="POST" enctype="multipart/form-data">
-<input type="hidden" name="index" value="<?= $edit ?>">
-<input type="hidden" name="old" value="<?= $dataEdit['materi'] ?>">
+    <div style="margin-bottom:15px;">
+        <b>TAHUN AJARAN:</b> 2025/2026 <br>
+        <b>SEMESTER:</b> GENAP <br>
+        <b>KELAS:</b> TI2A
+    </div>
 
-<input name="kode" placeholder="Kode" value="<?= $dataEdit['kode'] ?>"><br>
-<input name="matkul" placeholder="Mata Kuliah" value="<?= $dataEdit['matkul'] ?>"><br>
-<input name="kelas" placeholder="Kelas" value="<?= $dataEdit['kelas'] ?>"><br>
-<input name="jam" placeholder="Hari/Jam" value="<?= $dataEdit['jam'] ?>"><br>
-<input name="ruang" placeholder="Ruang" value="<?= $dataEdit['ruang'] ?>"><br>
-<input name="pengajar" placeholder="Dosen" value="<?= $dataEdit['pengajar'] ?>"><br>
+    <h3>
+        <?= $edit=="" ? "Tambah Data" : "Edit Data" ?>
+    </h3>
 
-<input type="file" name="materi"><br>
+    <form method="POST" enctype="multipart/form-data">
 
-<button name="simpan"><?= $edit=="" ? "Tambah" : "Update" ?></button>
-</form>
+        <input type="hidden" name="index" value="<?= $edit ?>">
 
-<hr>
+        <input type="hidden" name="old" value="<?= $dataEdit['materi'] ?>">
 
-<table>
-<tr>
-<th>No</th>
-<th>Kode</th>
-<th>Mata Kuliah</th>
-<th>Kelas</th>
-<th>Hari/Jam</th>
-<th>Ruang</th>
-<th>Dosen</th>
-<th>File</th>
-<th>Aksi</th>
-</tr>
+        <input
+            name="kode"
+            placeholder="Kode"
+            value="<?= $dataEdit['kode'] ?>"
+        ><br>
 
-<?php foreach($json['jadwal'] as $i=>$j): ?>
-<tr>
-<td><?= $i+1 ?></td>
-<td><?= $j['kode'] ?></td>
-<td><?= $j['matkul'] ?></td>
-<td><?= $j['kelas'] ?></td>
-<td><?= $j['jam'] ?></td>
-<td><?= $j['ruang'] ?></td>
-<td><?= $j['pengajar'] ?></td>
-<td>
-<?php if($j['materi']!=""): ?>
-<a href="uploads/<?= $j['materi'] ?>">File</a>
-<?php endif; ?>
-</td>
-<td>
-<a href="?edit=<?= $i ?>">Edit</a>
-<a href="?hapus=<?= $i ?>">Hapus</a>
-</td>
-</tr>
-<?php endforeach; ?>
+        <input
+            name="matkul"
+            placeholder="Mata Kuliah"
+            value="<?= $dataEdit['matkul'] ?>"
+        ><br>
 
-</table>
+        <input
+            name="kelas"
+            placeholder="Kelas"
+            value="<?= $dataEdit['kelas'] ?>"
+        ><br>
+
+        <input
+            name="jam"
+            placeholder="Hari/Jam"
+            value="<?= $dataEdit['jam'] ?>"
+        ><br>
+
+        <input
+            name="ruang"
+            placeholder="Ruang"
+            value="<?= $dataEdit['ruang'] ?>"
+        ><br>
+
+        <input
+            name="pengajar"
+            placeholder="Dosen"
+            value="<?= $dataEdit['pengajar'] ?>"
+        ><br>
+
+        <input type="file" name="materi"><br>
+
+        <button name="simpan">
+            <?= $edit=="" ? "Tambah" : "Update" ?>
+        </button>
+
+    </form>
+
+    <hr>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+
+        <tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th>Mata Kuliah</th>
+            <th>Kelas</th>
+            <th>Hari/Jam</th>
+            <th>Ruang</th>
+            <th>Dosen</th>
+            <th>File</th>
+            <th>Aksi</th>
+        </tr>
+
+        <?php foreach($json['jadwal'] as $i => $j): ?>
+
+        <tr>
+
+            <td><?= $i+1 ?></td>
+
+            <td><?= $j['kode'] ?></td>
+
+            <td><?= $j['matkul'] ?></td>
+
+            <td><?= $j['kelas'] ?></td>
+
+            <td><?= $j['jam'] ?></td>
+
+            <td><?= $j['ruang'] ?></td>
+
+            <td><?= $j['pengajar'] ?></td>
+
+            <td>
+                <?php if($j['materi'] != ""): ?>
+
+                    <a href="uploads/<?= $j['materi'] ?>">
+                        File
+                    </a>
+
+                <?php endif; ?>
+            </td>
+
+            <td>
+
+                <a href="?edit=<?= $i ?>">
+                    Edit
+                </a>
+
+                |
+
+                <a href="?hapus=<?= $i ?>">
+                    Hapus
+                </a>
+
+            </td>
+
+        </tr>
+
+        <?php endforeach; ?>
+
+    </table>
+
 </div>
 
 <?php include "partials/footer.php"; ?>
+
 </body>
 </html>
