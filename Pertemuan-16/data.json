@@ -1,0 +1,108 @@
+{
+    "biodata": {
+        "nim": "2511500005",
+        "nama": "MELVYN",
+        "ipk": "3.16",
+        "judul": "-",
+        "grade": "-",
+        "nisn": "-",
+        "ibu": "JAP ING ING",
+        "ayah": "JAP LUK LUK",
+        "tempat": "PK.PINANG",
+        "tanggal": "2006-01-06",
+        "jk": "LAKI LAKI",
+        "agama": "KRISTEN ",
+        "hp": "081369255717",
+        "nik": "19714546",
+        "alamat": "jalan sungai selan"
+    },
+    "master": [],
+    "jadwal": [
+        {
+            "kode": "IT202",
+            "matkul": "Kalkulus 2",
+            "kelas": "TI2A",
+            "jam": "Senin 08:00-10:30",
+            "ruang": "2.2.4",
+            "pengajar": "R Burham I. F.",
+            "materi": ""
+        },
+        {
+            "kode": "IF901",
+            "matkul": "Algoritma & Struktur Data",
+            "kelas": "TI2A",
+            "jam": "Senin 13:00-16:20",
+            "ruang": "LAB.3",
+            "pengajar": "Eza Budi Perkasa",
+            "materi": ""
+        },
+        {
+            "kode": "IT311",
+            "matkul": "Pemrograman Web",
+            "kelas": "TI2A",
+            "jam": "Selasa 10:30-13:00",
+            "ruang": "LAB.3",
+            "pengajar": "Delpiah W.",
+            "materi": ""
+        },
+        {
+            "kode": "IT305",
+            "matkul": "Basis Data",
+            "kelas": "TI2A",
+            "jam": "Rabu 10:30-13:00",
+            "ruang": "2.2.4",
+            "pengajar": "Melati Suci",
+            "materi": ""
+        },
+        {
+            "kode": "IT306",
+            "matkul": "Pemrograman Mobile",
+            "kelas": "TI2A",
+            "jam": "Kamis 08:00-10:30",
+            "ruang": "LAB.2",
+            "pengajar": "Rezky Yuranda",
+            "materi": ""
+        },
+        {
+            "kode": "UM301",
+            "matkul": "English Business",
+            "kelas": "TI2A",
+            "jam": "Jumat 08:00-09:40",
+            "ruang": "1.2.1",
+            "pengajar": "Sinta S.",
+            "materi": ""
+        },
+        {
+            "kode": "MT102",
+            "matkul": "Agama",
+            "kelas": "KRT",
+            "jam": "Jumat 13:50-15:30",
+            "ruang": "2.1.6",
+            "pengajar": "Shito M.",
+            "materi": ""
+        }
+    ],
+    "ekstra": [
+        {
+            "id": "2511500005",
+            "nama": "MELVYN",
+            "ket": "SSSSSSSS",
+            "semester": "1",
+            "tahun": "2023"
+        },
+        {
+            "id": "2511500005",
+            "nama": "MELVYN",
+            "ket": "SSSSSSSS",
+            "semester": "1",
+            "tahun": "2023"
+        },
+        {
+            "id": "2511500005",
+            "nama": "Budi",
+            "ket": "selamat datang",
+            "semester": "2",
+            "tahun": "2024"
+        }
+    ]
+}
