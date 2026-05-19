@@ -1,233 +1,277 @@
-<?php
-include "config.php";
+    <?php
+    include "config.php";
 
-$file = "data.json";
-$json = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+    $file = "data.json";
+    $json = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 
-if(!isset($json['jadwal'])) $json['jadwal'] = [];
+    if(!isset($json['jadwal'])) $json['jadwal'] = [];
 
-if(count($json['jadwal']) == 0){
-    $json['jadwal'] = [
-        ["kode"=>"IT202","matkul"=>"Kalkulus 2","kelas"=>"TI2A","jam"=>"Senin 08:00-10:30","ruang"=>"2.2.4","pengajar"=>"R Burham I. F.","materi"=>""],
-        ["kode"=>"IF901","matkul"=>"Algoritma & Struktur Data","kelas"=>"TI2A","jam"=>"Senin 13:00-16:20","ruang"=>"LAB.3","pengajar"=>"Eza Budi Perkasa","materi"=>""],
-        ["kode"=>"IT311","matkul"=>"Pemrograman Web","kelas"=>"TI2A","jam"=>"Selasa 10:30-13:00","ruang"=>"LAB.3","pengajar"=>"Delpiah W.","materi"=>""],
-        ["kode"=>"IT305","matkul"=>"Basis Data","kelas"=>"TI2A","jam"=>"Rabu 10:30-13:00","ruang"=>"2.2.4","pengajar"=>"Melati Suci","materi"=>""],
-        ["kode"=>"IT306","matkul"=>"Pemrograman Mobile","kelas"=>"TI2A","jam"=>"Kamis 08:00-10:30","ruang"=>"LAB.2","pengajar"=>"Rezky Yuranda","materi"=>""],
-        ["kode"=>"UM301","matkul"=>"English Business","kelas"=>"TI2A","jam"=>"Jumat 08:00-09:40","ruang"=>"1.2.1","pengajar"=>"Sinta S.","materi"=>""],
-        ["kode"=>"MT102","matkul"=>"Agama","kelas"=>"KRT","jam"=>"Jumat 13:50-15:30","ruang"=>"2.1.6","pengajar"=>"Shito M.","materi"=>""]
+    if(count($json['jadwal']) == 0){
+        $json['jadwal'] = [
+            ["kode"=>"IT202","matkul"=>"Kalkulus 2","kelas"=>"TI2A","jam"=>"Senin 08:00-10:30","ruang"=>"2.2.4","pengajar"=>"R Burham I. F.","materi"=>""],
+            ["kode"=>"IF901","matkul"=>"Algoritma & Struktur Data","kelas"=>"TI2A","jam"=>"Senin 13:00-16:20","ruang"=>"LAB.3","pengajar"=>"Eza Budi Perkasa","materi"=>""],
+            ["kode"=>"IT311","matkul"=>"Pemrograman Web","kelas"=>"TI2A","jam"=>"Selasa 10:30-13:00","ruang"=>"LAB.3","pengajar"=>"Delpiah W.","materi"=>""],
+            ["kode"=>"IT305","matkul"=>"Basis Data","kelas"=>"TI2A","jam"=>"Rabu 10:30-13:00","ruang"=>"2.2.4","pengajar"=>"Melati Suci","materi"=>""],
+            ["kode"=>"IT306","matkul"=>"Pemrograman Mobile","kelas"=>"TI2A","jam"=>"Kamis 08:00-10:30","ruang"=>"LAB.2","pengajar"=>"Rezky Yuranda","materi"=>""],
+            ["kode"=>"UM301","matkul"=>"English Business","kelas"=>"TI2A","jam"=>"Jumat 08:00-09:40","ruang"=>"1.2.1","pengajar"=>"Sinta S.","materi"=>""],
+            ["kode"=>"MT102","matkul"=>"Agama","kelas"=>"KRT","jam"=>"Jumat 13:50-15:30","ruang"=>"2.1.6","pengajar"=>"Shito M.","materi"=>""]
+        ];
+
+        file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+    }
+
+    $edit = "";
+    $dataEdit = [
+        "kode"=>"",
+        "matkul"=>"",
+        "kelas"=>"",
+        "jam"=>"",
+        "ruang"=>"",
+        "pengajar"=>"",
+        "materi"=>""
     ];
 
-    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
-}
+    if(isset($_GET['edit'])){
+        $edit = $_GET['edit'];
 
-$edit = "";
-$dataEdit = [
-    "kode"=>"",
-    "matkul"=>"",
-    "kelas"=>"",
-    "jam"=>"",
-    "ruang"=>"",
-    "pengajar"=>"",
-    "materi"=>""
-];
-
-if(isset($_GET['edit'])){
-    $edit = $_GET['edit'];
-
-    if(isset($json['jadwal'][$edit])){
-        $dataEdit = $json['jadwal'][$edit];
-    }
-}
-
-if(isset($_POST['simpan'])){
-
-    $fileMateri = $_POST['old'];
-
-    if($_FILES['materi']['name'] != ""){
-
-        $fileMateri = time()."_".$_FILES['materi']['name'];
-
-        move_uploaded_file(
-            $_FILES['materi']['tmp_name'],
-            "uploads/".$fileMateri
-        );
+        if(isset($json['jadwal'][$edit])){
+            $dataEdit = $json['jadwal'][$edit];
+        }
     }
 
-    $data = [
-        "kode"     => $_POST['kode'],
-        "matkul"   => $_POST['matkul'],
-        "kelas"    => $_POST['kelas'],
-        "jam"      => $_POST['jam'],
-        "ruang"    => $_POST['ruang'],
-        "pengajar" => $_POST['pengajar'],
-        "materi"   => $fileMateri
-    ];
+    if(isset($_POST['simpan'])){
 
-    if($_POST['index'] == ""){
-        $json['jadwal'][] = $data;
-    } else {
-        $json['jadwal'][$_POST['index']] = $data;
+        $fileMateri = $_POST['old'];
+
+        if($_FILES['materi']['name'] != ""){
+
+            $fileMateri = time()."_".$_FILES['materi']['name'];
+
+            move_uploaded_file(
+                $_FILES['materi']['tmp_name'],
+                "uploads/".$fileMateri
+            );
+        }
+
+        $data = [
+            "kode"     => $_POST['kode'],
+            "matkul"   => $_POST['matkul'],
+            "kelas"    => $_POST['kelas'],
+            "jam"      => $_POST['jam'],
+            "ruang"    => $_POST['ruang'],
+            "pengajar" => $_POST['pengajar'],
+            "materi"   => $fileMateri
+        ];
+
+        if($_POST['index'] == ""){
+            $json['jadwal'][] = $data;
+        } else {
+            $json['jadwal'][$_POST['index']] = $data;
+        }
+
+        file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+
+        header("Location: jadwal.php");
     }
 
-    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+    if(isset($_GET['hapus'])){
 
-    header("Location: jadwal.php");
-}
+        unset($json['jadwal'][$_GET['hapus']]);
 
-if(isset($_GET['hapus'])){
+        $json['jadwal'] = array_values($json['jadwal']);
 
-    unset($json['jadwal'][$_GET['hapus']]);
+        file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
 
-    $json['jadwal'] = array_values($json['jadwal']);
+        header("Location: jadwal.php");
+    }
+    ?>
 
-    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+    <html>
+    <head>
+        <title>Jadwal Kuliah</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
 
-    header("Location: jadwal.php");
-}
-?>
+    <body>
 
-<html>
-<head>
-    <title>Jadwal Kuliah</title>
-    <link rel="stylesheet" href="assets/style.css">
-</head>
+    <?php include "partials/header.php"; ?>
+    <?php include "partials/sidebar.php"; ?>
 
-<body>
+    <div class="content">
 
-<?php include "partials/header.php"; ?>
-<?php include "partials/sidebar.php"; ?>
+        <h2>Jadwal Kuliah</h2>
 
-<div class="content">
+        <div style="margin-bottom:15px;">
+            <b>TAHUN AJARAN:</b> 2025/2026 <br>
+            <b>SEMESTER:</b> GENAP <br>
+            <b>KELAS:</b> TI2A
+        </div>
 
-    <h2>Jadwal Kuliah</h2>
+        
 
-    <div style="margin-bottom:15px;">
-        <b>TAHUN AJARAN:</b> 2025/2026 <br>
-        <b>SEMESTER:</b> GENAP <br>
-        <b>KELAS:</b> TI2A
-    </div>
+        <hr>
 
+        <table border="1" cellpadding="10" cellspacing="0">
+
+            <tr>
+                <th>No</th>
+                <th>Kode</th>
+                <th>Mata Kuliah</th>
+                <th>Kelas</th>
+                <th>Hari/Jam</th>
+                <th>Ruang</th>
+                <th>Dosen</th>
+                <th>File</th>
+                <th>Aksi</th>
+            </tr>
+
+            <?php foreach($json['jadwal'] as $i => $j): ?>
+
+            <tr>
+
+                <td><?= $i+1 ?></td>
+
+                <td><?= $j['kode'] ?></td>
+
+                <td><?= $j['matkul'] ?></td>
+
+                <td><?= $j['kelas'] ?></td>
+
+                <td><?= $j['jam'] ?></td>
+
+                <td><?= $j['ruang'] ?></td>
+
+                <td><?= $j['pengajar'] ?></td>
+
+                <td>
+                    <?php if($j['materi'] != ""): ?>
+
+                        <a href="uploads/<?= $j['materi'] ?>">
+                            File
+                        </a>
+
+                    <?php endif; ?>
+                </td>
+
+                <td>
+
+                    <a href="?edit=<?= $i ?>">
+                        Edit
+                    </a>
+
+                    |
+
+                    <a href="?hapus=<?= $i ?>">
+                        Hapus
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <?php endforeach; ?>
+
+        </table>
+        <br>
+
+        
+<div class="form-jadwal">
     <h3>
-        <?= $edit=="" ? "Tambah Data" : "Edit Data" ?>
+        <?= $edit=="" ? "Tambah Data Jadwal" : "Edit Data Jadwal" ?>
     </h3>
 
     <form method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="index" value="<?= $edit ?>">
-
         <input type="hidden" name="old" value="<?= $dataEdit['materi'] ?>">
 
-        <input
-            name="kode"
-            placeholder="Kode"
-            value="<?= $dataEdit['kode'] ?>"
-        ><br>
+        <div class="form-grid">
 
-        <input
-            name="matkul"
-            placeholder="Mata Kuliah"
-            value="<?= $dataEdit['matkul'] ?>"
-        ><br>
+            <div class="form-group">
+                <label>Kode Mata Kuliah</label>
 
-        <input
-            name="kelas"
-            placeholder="Kelas"
-            value="<?= $dataEdit['kelas'] ?>"
-        ><br>
+                <input
+                    type="text"
+                    name="kode"
+                    placeholder="Contoh: IF101"
+                    value="<?= $dataEdit['kode'] ?>"
+                >
+            </div>
 
-        <input
-            name="jam"
-            placeholder="Hari/Jam"
-            value="<?= $dataEdit['jam'] ?>"
-        ><br>
+            <div class="form-group">
+                <label>Nama Mata Kuliah</label>
 
-        <input
-            name="ruang"
-            placeholder="Ruang"
-            value="<?= $dataEdit['ruang'] ?>"
-        ><br>
+                <input
+                    type="text"
+                    name="matkul"
+                    placeholder="Masukkan mata kuliah"
+                    value="<?= $dataEdit['matkul'] ?>"
+                >
+            </div>
 
-        <input
-            name="pengajar"
-            placeholder="Dosen"
-            value="<?= $dataEdit['pengajar'] ?>"
-        ><br>
+            <div class="form-group">
+                <label>Kelas</label>
 
-        <input type="file" name="materi"><br>
+                <input
+                    type="text"
+                    name="kelas"
+                    placeholder="Contoh: TI2A"
+                    value="<?= $dataEdit['kelas'] ?>"
+                >
+            </div>
 
-        <button name="simpan">
-            <?= $edit=="" ? "Tambah" : "Update" ?>
+            <div class="form-group">
+                <label>Hari / Jam</label>
+
+                <input
+                    type="text"
+                    name="jam"
+                    placeholder="Senin 08:00 - 10:30"
+                    value="<?= $dataEdit['jam'] ?>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Ruang</label>
+
+                <input
+                    type="text"
+                    name="ruang"
+                    placeholder="Contoh: LAB.3"
+                    value="<?= $dataEdit['ruang'] ?>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Dosen Pengajar</label>
+
+                <input
+                    type="text"
+                    name="pengajar"
+                    placeholder="Nama dosen"
+                    value="<?= $dataEdit['pengajar'] ?>"
+                >
+            </div>
+
+            <div class="form-group" style="grid-column:1/3;">
+                <label>Upload Materi</label>
+
+                <input type="file" name="materi">
+            </div>
+
+        </div>
+
+        <button class="btn-simpan" name="simpan">
+
+            <?= $edit=="" ? "Tambah Data" : "Update Data" ?>
+
         </button>
 
     </form>
 
-    <hr>
-
-    <table border="1" cellpadding="10" cellspacing="0">
-
-        <tr>
-            <th>No</th>
-            <th>Kode</th>
-            <th>Mata Kuliah</th>
-            <th>Kelas</th>
-            <th>Hari/Jam</th>
-            <th>Ruang</th>
-            <th>Dosen</th>
-            <th>File</th>
-            <th>Aksi</th>
-        </tr>
-
-        <?php foreach($json['jadwal'] as $i => $j): ?>
-
-        <tr>
-
-            <td><?= $i+1 ?></td>
-
-            <td><?= $j['kode'] ?></td>
-
-            <td><?= $j['matkul'] ?></td>
-
-            <td><?= $j['kelas'] ?></td>
-
-            <td><?= $j['jam'] ?></td>
-
-            <td><?= $j['ruang'] ?></td>
-
-            <td><?= $j['pengajar'] ?></td>
-
-            <td>
-                <?php if($j['materi'] != ""): ?>
-
-                    <a href="uploads/<?= $j['materi'] ?>">
-                        File
-                    </a>
-
-                <?php endif; ?>
-            </td>
-
-            <td>
-
-                <a href="?edit=<?= $i ?>">
-                    Edit
-                </a>
-
-                |
-
-                <a href="?hapus=<?= $i ?>">
-                    Hapus
-                </a>
-
-            </td>
-
-        </tr>
-
-        <?php endforeach; ?>
-
-    </table>
-
 </div>
 
-<?php include "partials/footer.php"; ?>
+    <?php include "partials/footer.php"; ?>
 
-</body>
-</html>
+    </body>
+    </html>
