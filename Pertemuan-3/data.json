@@ -13,8 +13,8 @@
         "jk": "LAKI LAKI",
         "agama": "KRISTEN ",
         "hp": "081369255717",
-        "nik": "1971....",
-        "alamat": ""
+        "nik": "19714546",
+        "alamat": "jalan sungai selan"
     },
     "master": [],
     "jadwal": [
@@ -89,6 +89,20 @@
             "ket": "SSSSSSSS",
             "semester": "1",
             "tahun": "2023"
+        },
+        {
+            "id": "2511500005",
+            "nama": "MELVYN",
+            "ket": "SSSSSSSS",
+            "semester": "1",
+            "tahun": "2023"
+        },
+        {
+            "id": "2511500005",
+            "nama": "Budi",
+            "ket": "selamat datang",
+            "semester": "2",
+            "tahun": "2024"
         }
     ]
 }
