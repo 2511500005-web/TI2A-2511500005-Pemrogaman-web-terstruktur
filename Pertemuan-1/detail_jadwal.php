@@ -16,7 +16,6 @@ if(!isset($json['jadwal'])){
     $json['jadwal'] = [];
 }
 
-/* TAMBAH FIELD JIKA BELUM ADA */
 foreach($json['jadwal'] as $i => $j){
 
     if(!isset($json['jadwal'][$i]['detail_jadwal'])){
@@ -38,8 +37,7 @@ foreach($json['jadwal'] as $i => $j){
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-rel="stylesheet"
->
+rel="stylesheet">
 
 </head>
 
@@ -59,15 +57,15 @@ rel="stylesheet"
 
 <tr class="table-primary">
 
-    <th>No</th>
-    <th>Kode</th>
-    <th>Mata Kuliah</th>
-    <th>Kelas</th>
-    <th>Hari / Jam</th>
-    <th>Ruang</th>
-    <th>Dosen</th>
-    <th>Materi</th>
-    <th>Detail Tambahan</th>
+<th>No</th>
+<th>Kode</th>
+<th>Mata Kuliah</th>
+<th>Kelas</th>
+<th>Hari / Jam</th>
+<th>Ruang</th>
+<th>Dosen</th>
+<th>Materi</th>
+<th>Detail Tambahan</th>
 
 </tr>
 
@@ -77,97 +75,82 @@ rel="stylesheet"
 
 <tr>
 
-    <td><?= $i+1 ?></td>
+<td><?= $i+1 ?></td>
 
-    <td><?= $j['kode'] ?></td>
+<td><?= $j['kode'] ?></td>
 
-    <td><?= $j['matkul'] ?></td>
+<td><?= $j['matkul'] ?></td>
 
-    <!-- LOOPING KELAS -->
-    <td>
+<td><?= $j['kelas'] ?></td>
 
-        <?php
-        for($k=1; $k<=3; $k++):
-        ?>
+<td><?= $j['jam'] ?></td>
 
-            <div>
-                <?= $j['kelas'] ?> - Kelompok <?= $k ?>
-            </div>
+<td><?= $j['ruang'] ?></td>
 
-        <?php endfor; ?>
+<td><?= $j['pengajar'] ?></td>
 
-    </td>
+<td>
 
-    <td><?= $j['jam'] ?></td>
+<?php if($j['materi'] != ""): ?>
 
-    <td><?= $j['ruang'] ?></td>
+<a
+href="uploads/<?= $j['materi'] ?>"
+class="btn btn-success btn-sm">
+Download
+</a>
 
-    <td><?= $j['pengajar'] ?></td>
+<?php else: ?>
 
-    <td>
+<span class="text-danger">
+Belum Ada
+</span>
 
-        <?php if($j['materi'] != ""): ?>
+<?php endif; ?>
 
-            <a
-                href="uploads/<?= $j['materi'] ?>"
-                class="btn btn-success btn-sm"
-            >
-                Download
-            </a>
+</td>
 
-        <?php else: ?>
+<td>
 
-            <span class="text-danger">
-                Belum Ada
-            </span>
+<?php if(count($j['detail_jadwal']) > 0): ?>
 
-        <?php endif; ?>
+<table class="table table-bordered table-sm">
 
-    </td>
+<tr class="table-dark">
 
-    <!-- DETAIL TAMBAHAN -->
-    <td>
+<th>Mapel</th>
+<th>Hari</th>
+<th>Jam</th>
+<th>Kelas</th>
 
-        <?php if(count($j['detail_jadwal']) > 0): ?>
+</tr>
 
-        <table class="table table-bordered table-sm">
+<?php foreach($j['detail_jadwal'] as $d): ?>
 
-            <tr class="table-dark">
+<tr>
 
-                <th>Mapel</th>
-                <th>Hari</th>
-                <th>Jam</th>
-                <th>Kelas</th>
+<td><?= $d['mapel'] ?></td>
 
-            </tr>
+<td><?= $d['hari'] ?></td>
 
-            <?php foreach($j['detail_jadwal'] as $d): ?>
+<td><?= $d['jam'] ?></td>
 
-            <tr>
+<td><?= $d['kelas'] ?></td>
 
-                <td><?= $d['mapel'] ?></td>
+</tr>
 
-                <td><?= $d['hari'] ?></td>
+<?php endforeach; ?>
 
-                <td><?= $d['jam'] ?></td>
+</table>
 
-                <td><?= $d['kelas'] ?></td>
+<?php else: ?>
 
-            </tr>
+<span class="text-danger">
+Belum ada detail
+</span>
 
-            <?php endforeach; ?>
+<?php endif; ?>
 
-        </table>
-
-        <?php else: ?>
-
-        <span class="text-danger">
-            Belum ada detail
-        </span>
-
-        <?php endif; ?>
-
-    </td>
+</td>
 
 </tr>
 
@@ -177,117 +160,15 @@ rel="stylesheet"
 
 <tr>
 
-    <td colspan="9" class="text-center">
-
-        Data jadwal kosong
-
-    </td>
+<td colspan="9" class="text-center">
+Data jadwal kosong
+</td>
 
 </tr>
 
 <?php endif; ?>
 
 </table>
-
-</div>
-
-<br>
-
-<!-- JADWAL PER HARI -->
-<div class="card p-3">
-
-<h4>Jadwal Per Hari</h4>
-
-<?php
-
-$hariList = [
-    "Senin",
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat"
-];
-
-foreach($hariList as $hari):
-
-?>
-
-<h5 class="mt-3">
-
-    <?= $hari ?>
-
-</h5>
-
-<table class="table table-bordered">
-
-<tr class="table-dark">
-
-    <th>Kode</th>
-    <th>Mata Kuliah</th>
-    <th>Kelas</th>
-    <th>Jam</th>
-    <th>Detail</th>
-
-</tr>
-
-<?php
-
-foreach($json['jadwal'] as $j):
-
-if(strpos($j['jam'], $hari) !== false):
-
-?>
-
-<tr>
-
-    <td><?= $j['kode'] ?></td>
-
-    <td><?= $j['matkul'] ?></td>
-
-    <td><?= $j['kelas'] ?></td>
-
-    <td><?= $j['jam'] ?></td>
-
-    <td>
-
-        <?php if(count($j['detail_jadwal']) > 0): ?>
-
-            <?php foreach($j['detail_jadwal'] as $d): ?>
-
-                <div style="margin-bottom:8px;">
-
-                    <b><?= $d['mapel'] ?></b><br>
-
-                    <?= $d['hari'] ?>
-                    -
-                    <?= $d['jam'] ?>
-                    -
-                    <?= $d['kelas'] ?>
-
-                </div>
-
-            <?php endforeach; ?>
-
-        <?php else: ?>
-
-            <span class="text-danger">
-                Tidak ada detail
-            </span>
-
-        <?php endif; ?>
-
-    </td>
-
-</tr>
-
-<?php
-endif;
-endforeach;
-?>
-
-</table>
-
-<?php endforeach; ?>
 
 </div>
 
