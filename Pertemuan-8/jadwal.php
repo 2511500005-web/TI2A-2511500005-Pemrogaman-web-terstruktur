@@ -10,7 +10,7 @@ if(!isset($json['jadwal'])){
     $json['jadwal'] = [];
 }
 
-/* TAMBAH FIELD DETAIL JIKA BELUM ADA */
+
 foreach($json['jadwal'] as $i => $j){
 
     if(!isset($json['jadwal'][$i]['detail_jadwal'])){
@@ -21,7 +21,7 @@ foreach($json['jadwal'] as $i => $j){
 
 }
 
-/* DEFAULT DATA */
+
 if(count($json['jadwal']) == 0){
 
     $json['jadwal'] = [
@@ -63,7 +63,7 @@ $dataEdit = [
     "detail_jadwal"=>[]
 ];
 
-/* EDIT */
+
 if(isset($_GET['edit'])){
 
     $edit = $_GET['edit'];
@@ -75,7 +75,7 @@ if(isset($_GET['edit'])){
     }
 }
 
-/* SIMPAN */
+
 if(isset($_POST['simpan'])){
 
     $fileMateri = $_POST['old'];

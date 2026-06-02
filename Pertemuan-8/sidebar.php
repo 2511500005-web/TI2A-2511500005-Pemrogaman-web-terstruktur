@@ -1,4 +1,4 @@
-- <div class="sidebar">
+<div class="sidebar">
 
 <h3>Akses</h3>
 
@@ -6,9 +6,13 @@
 
 <b>Menu Admin</b>
 
-<a href="dashboard.php">Dashboard</a>
+<a href="dashboard.php">
+Dashboard
+</a>
 
-<a href="jadwal.php">Jadwal</a>
+<a href="jadwal.php">
+Jadwal
+</a>
 
 <a href="detail_jadwal.php">
 Detail Jadwal
@@ -22,15 +26,21 @@ Cetak Jadwal
 Ekstrakurikuler
 </a>
 
-<?php elseif($_SESSION['role']=="guru"): ?>
+<a href="ubah_password.php">
+Ubah Password
+</a>
 
-<b>Menu Guru</b>
+<?php elseif($_SESSION['role']=="Dosen"): ?>
 
-<a href="dashboard.php">Dashboard</a>
+<b>Menu Dosen</b>
 
-<a href="kelas.php">Kelas</a>
+<a href="dashboard.php">
+Dashboard
+</a>
 
-<a href="jadwal.php">Jadwal</a>
+<a href="kelas.php">
+Kelas
+</a>
 
 <a href="lihat_jadwal.php">
 Jadwal Saya
@@ -44,11 +54,21 @@ Detail Jadwal
 Ekstrakurikuler
 </a>
 
+<a href="cetak_dosen.php">
+Cetak Dosen
+</a>
+
+<a href="ubah_password.php">
+Ubah Password
+</a>
+
 <?php else: ?>
 
 <b>Menu Mahasiswa</b>
 
-<a href="dashboard.php">Dashboard</a>
+<a href="dashboard.php">
+Dashboard
+</a>
 
 <a href="lihat_jadwal.php">
 Jadwal Kelas
@@ -60,6 +80,14 @@ Detail Jadwal
 
 <a href="ekstraNimAnda.php">
 Ekstrakurikuler
+</a>
+
+<a href="cetak_mahasiswa.php">
+Cetak Mahasiswa
+</a>
+
+<a href="ubah_password.php">
+Ubah Password
 </a>
 
 <?php endif; ?>
