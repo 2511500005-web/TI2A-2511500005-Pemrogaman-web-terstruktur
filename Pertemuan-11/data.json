@@ -1,106 +1,4 @@
 {
-    "users": [
-        {
-            "username": "admin",
-            "password": "123",
-            "role": "admin"
-        },
-        {
-            "username": "guru",
-            "password": "123",
-            "role": "guru"
-        },
-        {
-            "username": "siswa",
-            "password": "123",
-            "role": "siswa",
-            "kelas": "TI2A"
-        }
-    ],
-    "guru": [
-        {
-            "id": "G001",
-            "nama": "R Burham I. F.",
-            "password": "123"
-        },
-        {
-            "id": "G002",
-            "nama": "Eza Budi Perkasa",
-            "password": "123"
-        },
-        {
-            "id": "G003",
-            "nama": "Delpiah W.",
-            "password": "123"
-        },
-        {
-            "id": "G004",
-            "nama": "Melati Suci",
-            "password": "123"
-        },
-        {
-            "id": "G005",
-            "nama": "Rezky Yuranda",
-            "password": "123"
-        }
-    ],
-    "kelas": [
-        {
-            "kode": "TI2A",
-            "nama": "Teknik Informatika 2A"
-        },
-        {
-            "kode": "KRT",
-            "nama": "Kelas Reguler Teknik"
-        }
-    ],
-    "master": [
-        {
-            "kode": "IT202",
-            "nama": "Kalkulus 2"
-        },
-        {
-            "kode": "IF901",
-            "nama": "Algoritma & Struktur Data"
-        },
-        {
-            "kode": "IT311",
-            "nama": "Pemrograman Web"
-        },
-        {
-            "kode": "IT305",
-            "nama": "Basis Data"
-        },
-        {
-            "kode": "IT306",
-            "nama": "Pemrograman Mobile"
-        },
-        {
-            "kode": "UM301",
-            "nama": "English Business"
-        },
-        {
-            "kode": "MT102",
-            "nama": "Agama"
-        }
-    ],
-    "biodata": {
-        "nim": "2511500005",
-        "nama": "MELVYN",
-        "ipk": "3.16",
-        "judul": "-",
-        "grade": "-",
-        "nisn": "-",
-        "ibu": "JAP ING ING",
-        "ayah": "JAP LUK LUK",
-        "tempat": "PK.PINANG",
-        "tanggal": "2006-01-06",
-        "jk": "LAKI LAKI",
-        "agama": "KRISTEN",
-        "hp": "081369255717",
-        "nik": "19714546",
-        "alamat": "jalan sungai selan"
-    },
     "jadwal": [
         {
             "kode": "IT202",
@@ -109,13 +7,17 @@
             "jam": "Senin 08:00-10:30",
             "ruang": "2.2.4",
             "pengajar": "R Burham I. F.",
-            "materi": "",
             "detail_jadwal": [
                 {
-                    "id_detail": "DJ001",
-                    "mapel": "Limit",
+                    "mapel": "Limit Fungsi",
                     "hari": "Senin",
-                    "jam": "08:00-10:30",
+                    "jam": "08:00-09:00",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Turunan",
+                    "hari": "Senin",
+                    "jam": "09:00-10:30",
                     "kelas": "TI2A"
                 }
             ]
@@ -127,13 +29,17 @@
             "jam": "Senin 13:00-16:20",
             "ruang": "LAB.3",
             "pengajar": "Eza Budi Perkasa",
-            "materi": "",
             "detail_jadwal": [
                 {
-                    "id_detail": "DJ002",
                     "mapel": "Array",
                     "hari": "Senin",
-                    "jam": "13:00-16:20",
+                    "jam": "13:00-14:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Stack",
+                    "hari": "Senin",
+                    "jam": "14:30-16:20",
                     "kelas": "TI2A"
                 }
             ]
@@ -145,197 +51,124 @@
             "jam": "Selasa 10:30-13:00",
             "ruang": "LAB.3",
             "pengajar": "Delpiah W.",
-            "materi": "",
             "detail_jadwal": [
                 {
-                    "id_detail": "DJ003",
-                    "mapel": "PHP Dasar",
+                    "mapel": "HTML",
                     "hari": "Selasa",
-                    "jam": "10:30-13:00",
+                    "jam": "10:30-11:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "CSS",
+                    "hari": "Selasa",
+                    "jam": "11:30-13:00",
                     "kelas": "TI2A"
                 }
             ]
         },
         {
-            "kode": "",
-            "matkul": "sistem manajemen basis data",
-            "kelas": "",
-            "jam": "",
-            "ruang": "",
-            "pengajar": "",
-            "materi": "",
-            "detail_jadwal": []
+            "kode": "IT305",
+            "matkul": "Basis Data",
+            "kelas": "TI2A",
+            "jam": "Rabu 10:30-13:00",
+            "ruang": "2.2.4",
+            "pengajar": "Melati Suci",
+            "detail_jadwal": [
+                {
+                    "mapel": "ERD",
+                    "hari": "Rabu",
+                    "jam": "10:30-11:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Normalisasi",
+                    "hari": "Rabu",
+                    "jam": "11:30-13:00",
+                    "kelas": "TI2A"
+                }
+            ]
         },
         {
-            "kode": "",
-            "matkul": "desain",
-            "kelas": "",
-            "jam": "",
-            "ruang": "",
-            "pengajar": "",
-            "materi": "",
-            "detail_jadwal": []
+            "kode": "IT306",
+            "matkul": "Pemrograman Mobile",
+            "kelas": "TI2A",
+            "jam": "Kamis 08:00-10:30",
+            "ruang": "LAB.2",
+            "pengajar": "Rezky Yuranda",
+            "detail_jadwal": [
+                {
+                    "mapel": "Flutter",
+                    "hari": "Kamis",
+                    "jam": "08:00-09:00",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Widget",
+                    "hari": "Kamis",
+                    "jam": "09:00-10:30",
+                    "kelas": "TI2A"
+                }
+            ]
         },
         {
-            "kode": "",
-            "matkul": "english",
-            "kelas": "",
-            "jam": "",
-            "ruang": "",
-            "pengajar": "",
-            "materi": "",
-            "detail_jadwal": []
+            "kode": "UM301",
+            "matkul": "English Business",
+            "kelas": "TI2A",
+            "jam": "Jumat 08:00-09:40",
+            "ruang": "1.2.1",
+            "pengajar": "Sinta S.",
+            "detail_jadwal": [
+                {
+                    "mapel": "Grammar",
+                    "hari": "Jumat",
+                    "jam": "08:00-08:50",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Presentation",
+                    "hari": "Jumat",
+                    "jam": "08:50-09:40",
+                    "kelas": "TI2A"
+                }
+            ]
         },
         {
-            "kode": "",
-            "matkul": "agama krt",
-            "kelas": "",
-            "jam": "",
-            "ruang": "",
-            "pengajar": "",
-            "materi": "",
-            "detail_jadwal": []
+            "kode": "MT102",
+            "matkul": "Agama",
+            "kelas": "KRT",
+            "jam": "Jumat 13:50-15:30",
+            "ruang": "2.1.6",
+            "pengajar": "Shito M.",
+            "detail_jadwal": [
+                {
+                    "mapel": "Etika",
+                    "hari": "Jumat",
+                    "jam": "13:50-14:40",
+                    "kelas": "KRT"
+                },
+                {
+                    "mapel": "Nilai Moral",
+                    "hari": "Jumat",
+                    "jam": "14:40-15:30",
+                    "kelas": "KRT"
+                }
+            ]
         }
     ],
     "ekstra": [
         {
             "id": "2511500005",
-            "nama": "MELVYN",
-            "ket": "PELUKIS",
+            "nama": "MELUKIS",
+            "ket": "",
             "semester": "1",
             "tahun": "2023"
-        }
-    ],
-    "erd": {
-        "users": {
-            "primary_key": "username",
-            "fields": [
-                "username",
-                "password",
-                "role",
-                "kelas"
-            ],
-            "relation": {
-                "kelas": "kelas.kode"
-            }
-        },
-        "guru": {
-            "primary_key": "id",
-            "fields": [
-                "id",
-                "nama",
-                "password"
-            ]
-        },
-        "kelas": {
-            "primary_key": "kode",
-            "fields": [
-                "kode",
-                "nama"
-            ]
-        },
-        "master": {
-            "primary_key": "kode",
-            "fields": [
-                "kode",
-                "nama"
-            ]
-        },
-        "jadwal": {
-            "primary_key": "kode",
-            "fields": [
-                "kode",
-                "matkul",
-                "kelas",
-                "jam",
-                "ruang",
-                "pengajar",
-                "materi"
-            ],
-            "relation": {
-                "matkul": "master.nama",
-                "kelas": "kelas.kode",
-                "pengajar": "guru.nama",
-                "detail_jadwal": "detail_jadwal.kode_jadwal"
-            }
-        },
-        "detail_jadwal": {
-            "primary_key": "id_detail",
-            "fields": [
-                "id_detail",
-                "mapel",
-                "hari",
-                "jam",
-                "kelas"
-            ],
-            "relation": {
-                "kelas": "kelas.kode"
-            }
-        },
-        "biodata": {
-            "primary_key": "nim",
-            "fields": [
-                "nim",
-                "nama",
-                "ipk",
-                "judul",
-                "grade",
-                "nisn",
-                "ibu",
-                "ayah",
-                "tempat",
-                "tanggal",
-                "jk",
-                "agama",
-                "hp",
-                "nik",
-                "alamat"
-            ]
-        },
-        "ekstra": {
-            "primary_key": "id",
-            "fields": [
-                "id",
-                "nama",
-                "ket",
-                "semester",
-                "tahun"
-            ],
-            "relation": {
-                "id": "biodata.nim"
-            }
-        }
-    },
-    "relasi": [
-        {
-            "parent": "kelas",
-            "child": "users",
-            "type": "1:N"
         },
         {
-            "parent": "kelas",
-            "child": "jadwal",
-            "type": "1:N"
-        },
-        {
-            "parent": "guru",
-            "child": "jadwal",
-            "type": "1:N"
-        },
-        {
-            "parent": "master",
-            "child": "jadwal",
-            "type": "1:N"
-        },
-        {
-            "parent": "jadwal",
-            "child": "detail_jadwal",
-            "type": "1:N"
-        },
-        {
-            "parent": "biodata",
-            "child": "ekstra",
-            "type": "1:N"
+            "id": "2511500004",
+            "nama": "MATEMATIKA",
+            "ket": "",
+            "semester": "1",
+            "tahun": "2023"
         }
     ]
 }
