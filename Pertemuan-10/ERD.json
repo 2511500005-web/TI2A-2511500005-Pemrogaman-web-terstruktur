@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "project": "Sistem Jadwal Kuliah JSON",
   "database": "data.json",
@@ -131,4 +132,139 @@
     }
 
   }
+=======
+{
+  "project": "Sistem Jadwal Kuliah JSON",
+  "database": "data.json",
+  "erd": {
+
+    "users": {
+      "primary_key": "id_user",
+      "fields": {
+        "id_user": "string",
+        "username": "string",
+        "password": "string",
+        "role": "string",
+        "kelas": "string"
+      },
+      "relation": {
+        "kelas": "many_to_one -> kelas.id_kelas"
+      }
+    },
+
+    "kelas": {
+      "primary_key": "id_kelas",
+      "fields": {
+        "id_kelas": "string",
+        "nama_kelas": "string"
+      },
+      "relation": {
+        "jadwal": "one_to_many -> jadwal.id_kelas"
+      }
+    },
+
+    "guru": {
+      "primary_key": "id_guru",
+      "fields": {
+        "id_guru": "string",
+        "nama_guru": "string",
+        "alamat": "string",
+        "telepon": "string"
+      },
+      "relation": {
+        "jadwal": "one_to_many -> jadwal.id_dosen"
+      }
+    },
+
+    "mapel": {
+      "primary_key": "id_mapel",
+      "fields": {
+        "id_mapel": "string",
+        "kode_mapel": "string",
+        "nama_mapel": "string",
+        "sks": "integer"
+      },
+      "relation": {
+        "jadwal": "one_to_many -> jadwal.id_mapel"
+      }
+    },
+
+    "jadwal": {
+      "primary_key": "id_jadwal",
+      "foreign_key": [
+        "id_kelas",
+        "id_dosen",
+        "id_matkul"
+      ],
+      "fields": {
+        "id_jadwal": "string",
+        "id_kelas": "string",
+        "id_dosen": "string",
+        "id_matkul": "string",
+        "hari": "string",
+        "jam": "string",
+        "ruang": "string",
+        "materi": "string"
+      },
+      "relation": {
+        "kelas": "many_to_one -> kelas.id_kelas",
+        "dosen": "many_to_one -> dosen.id_dosen",
+        "matkul": "many_to_one -> matkul.id_matkul",
+        "detail_jadwal": "one_to_many -> detail_jadwal.id_jadwal"
+      }
+    },
+
+    "detail_jadwal": {
+      "primary_key": "id_detail",
+      "foreign_key": [
+        "id_jadwal"
+      ],
+      "fields": {
+        "id_detail": "string",
+        "id_jadwal": "string",
+        "materi": "string",
+        "hari": "string",
+        "jam": "string",
+        "kelas": "string"
+      },
+      "relation": {
+        "jadwal": "many_to_one -> jadwal.id_jadwal"
+      }
+    },
+
+    "ekstra": {
+      "primary_key": "id_ekstra",
+      "fields": {
+        "id_ekstra": "string",
+        "id_mahasiswa": "string",
+        "nama": "string",
+        "ket": "string",
+        "semester": "string",
+        "tahun": "string"
+      }
+    },
+
+    "biodata": {
+      "primary_key": "nim",
+      "fields": {
+        "nim": "string",
+        "nama": "string",
+        "ipk": "string",
+        "judul": "string",
+        "grade": "string",
+        "nisn": "string",
+        "ibu": "string",
+        "ayah": "string",
+        "tempat": "string",
+        "tanggal": "date",
+        "jk": "string",
+        "agama": "string",
+        "hp": "string",
+        "nik": "string",
+        "alamat": "text"
+      }
+    }
+
+  }
+>>>>>>> 927050f957227fb1c96bfdf6e8ba7fc8aa977e5e
 }

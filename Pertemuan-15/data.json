@@ -1,0 +1,174 @@
+{
+    "jadwal": [
+        {
+            "kode": "IT202",
+            "matkul": "Kalkulus 2",
+            "kelas": "TI2A",
+            "jam": "Senin 08:00-10:30",
+            "ruang": "2.2.4",
+            "pengajar": "R Burham I. F.",
+            "detail_jadwal": [
+                {
+                    "mapel": "Limit Fungsi",
+                    "hari": "Senin",
+                    "jam": "08:00-09:00",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Turunan",
+                    "hari": "Senin",
+                    "jam": "09:00-10:30",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "IF901",
+            "matkul": "Algoritma & Struktur Data",
+            "kelas": "TI2A",
+            "jam": "Senin 13:00-16:20",
+            "ruang": "LAB.3",
+            "pengajar": "Eza Budi Perkasa",
+            "detail_jadwal": [
+                {
+                    "mapel": "Array",
+                    "hari": "Senin",
+                    "jam": "13:00-14:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Stack",
+                    "hari": "Senin",
+                    "jam": "14:30-16:20",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "IT311",
+            "matkul": "Pemrograman Web",
+            "kelas": "TI2A",
+            "jam": "Selasa 10:30-13:00",
+            "ruang": "LAB.3",
+            "pengajar": "Delpiah W.",
+            "detail_jadwal": [
+                {
+                    "mapel": "HTML",
+                    "hari": "Selasa",
+                    "jam": "10:30-11:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "CSS",
+                    "hari": "Selasa",
+                    "jam": "11:30-13:00",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "IT305",
+            "matkul": "Basis Data",
+            "kelas": "TI2A",
+            "jam": "Rabu 10:30-13:00",
+            "ruang": "2.2.4",
+            "pengajar": "Melati Suci",
+            "detail_jadwal": [
+                {
+                    "mapel": "ERD",
+                    "hari": "Rabu",
+                    "jam": "10:30-11:30",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Normalisasi",
+                    "hari": "Rabu",
+                    "jam": "11:30-13:00",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "IT306",
+            "matkul": "Pemrograman Mobile",
+            "kelas": "TI2A",
+            "jam": "Kamis 08:00-10:30",
+            "ruang": "LAB.2",
+            "pengajar": "Rezky Yuranda",
+            "detail_jadwal": [
+                {
+                    "mapel": "Flutter",
+                    "hari": "Kamis",
+                    "jam": "08:00-09:00",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Widget",
+                    "hari": "Kamis",
+                    "jam": "09:00-10:30",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "UM301",
+            "matkul": "English Business",
+            "kelas": "TI2A",
+            "jam": "Jumat 08:00-09:40",
+            "ruang": "1.2.1",
+            "pengajar": "Sinta S.",
+            "detail_jadwal": [
+                {
+                    "mapel": "Grammar",
+                    "hari": "Jumat",
+                    "jam": "08:00-08:50",
+                    "kelas": "TI2A"
+                },
+                {
+                    "mapel": "Presentation",
+                    "hari": "Jumat",
+                    "jam": "08:50-09:40",
+                    "kelas": "TI2A"
+                }
+            ]
+        },
+        {
+            "kode": "MT102",
+            "matkul": "Agama",
+            "kelas": "KRT",
+            "jam": "Jumat 13:50-15:30",
+            "ruang": "2.1.6",
+            "pengajar": "Shito M.",
+            "detail_jadwal": [
+                {
+                    "mapel": "Etika",
+                    "hari": "Jumat",
+                    "jam": "13:50-14:40",
+                    "kelas": "KRT"
+                },
+                {
+                    "mapel": "Nilai Moral",
+                    "hari": "Jumat",
+                    "jam": "14:40-15:30",
+                    "kelas": "KRT"
+                }
+            ]
+        }
+    ],
+    "ekstra": [
+        {
+            "id": "2511500005",
+            "nama": "MELUKIS",
+            "ket": "",
+            "semester": "1",
+            "tahun": "2023"
+        },
+        {
+            "id": "2511500004",
+            "nama": "MATEMATIKA",
+            "ket": "",
+            "semester": "1",
+            "tahun": "2023"
+        }
+    ]
+}
