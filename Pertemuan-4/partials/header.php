@@ -1,1 +1,1 @@
-<div class="header">Admin Panel</div>
+ <div class="header">AdminLTE</div>

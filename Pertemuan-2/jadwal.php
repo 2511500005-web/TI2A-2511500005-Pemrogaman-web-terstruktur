@@ -1,131 +1,574 @@
+   - <?php
+include "config.php";
 
-<?php include "config.php"; ?>
+$file = "data.json";
+$json = file_exists($file)
+    ? json_decode(file_get_contents($file), true)
+    : [];
+
+if(!isset($json['jadwal'])){
+    $json['jadwal'] = [];
+}
+
+
+foreach($json['jadwal'] as $i => $j){
+
+    if(!isset($json['jadwal'][$i]['detail_jadwal'])){
+
+        $json['jadwal'][$i]['detail_jadwal'] = [];
+
+    }
+
+}
+
+
+if(count($json['jadwal']) == 0){
+
+    $json['jadwal'] = [
+
+        [
+            "kode"=>"IT202",
+            "matkul"=>"Kalkulus 2",
+            "kelas"=>"TI2A",
+            "jam"=>"Senin 08:00-10:30",
+            "ruang"=>"2.2.4",
+            "pengajar"=>"R Burham I. F.",
+            "materi"=>"",
+
+            "detail_jadwal"=>[
+                [
+                    "mapel"=>"Kalkulus 2",
+                    "hari"=>"Senin",
+                    "jam"=>"08:00-10:30",
+                    "kelas"=>"TI2A"
+                ]
+            ]
+        ]
+
+    ];
+
+    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+}
+
+$edit = "";
+
+$dataEdit = [
+    "kode"=>"",
+    "matkul"=>"",
+    "kelas"=>"",
+    "jam"=>"",
+    "ruang"=>"",
+    "pengajar"=>"",
+    "materi"=>"",
+    "detail_jadwal"=>[]
+];
+
+
+if(isset($_GET['edit'])){
+
+    $edit = $_GET['edit'];
+
+    if(isset($json['jadwal'][$edit])){
+
+        $dataEdit = $json['jadwal'][$edit];
+
+    }
+}
+
+
+if(isset($_POST['simpan'])){
+
+    $fileMateri = $_POST['old'];
+
+    if($_FILES['materi']['name'] != ""){
+
+        $fileMateri = time()."_".$_FILES['materi']['name'];
+
+        move_uploaded_file(
+            $_FILES['materi']['tmp_name'],
+            "uploads/".$fileMateri
+        );
+    }
+
+    $detail = [];
+
+    if(isset($_POST['detail_mapel'])){
+
+        for($i=0; $i<count($_POST['detail_mapel']); $i++){
+
+            if($_POST['detail_mapel'][$i] != ""){
+
+                $detail[] = [
+
+                    "mapel" => $_POST['detail_mapel'][$i],
+                    "hari"  => $_POST['detail_hari'][$i],
+                    "jam"   => $_POST['detail_jam'][$i],
+                    "kelas" => $_POST['detail_kelas'][$i]
+
+                ];
+
+            }
+
+        }
+
+    }
+
+    $data = [
+
+        "kode"     => $_POST['kode'],
+        "matkul"   => $_POST['matkul'],
+        "kelas"    => $_POST['kelas'],
+        "jam"      => $_POST['jam'],
+        "ruang"    => $_POST['ruang'],
+        "pengajar" => $_POST['pengajar'],
+        "materi"   => $fileMateri,
+        "detail_jadwal" => $detail
+
+    ];
+
+    if($_POST['index'] == ""){
+
+        $json['jadwal'][] = $data;
+
+    } else {
+
+        $json['jadwal'][$_POST['index']] = $data;
+
+    }
+
+    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+
+    header("Location: jadwal.php");
+}
+
+/* HAPUS */
+if(isset($_GET['hapus'])){
+
+    unset($json['jadwal'][$_GET['hapus']]);
+
+    $json['jadwal'] = array_values($json['jadwal']);
+
+    file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT));
+
+    header("Location: jadwal.php");
+}
+?>
 
 <html>
-<head><link rel="stylesheet" href="assets/style.css"></head>
+
+<head>
+
+<title>Jadwal Kuliah</title>
+
+<link rel="stylesheet" href="assets/style.css">
+
+<style>
+
+.detail-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.detail-row select,
+.detail-row input{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.btn-detail{
+    background:#17a2b8;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
 <body>
 
 <?php include "partials/header.php"; ?>
 <?php include "partials/sidebar.php"; ?>
 
 <div class="content">
-<h2>Jadwal Kuliah</h2>
 
-<table>
-<tr>
-<th>No</th><th>Kode</th><th>Mata Kuliah</th><th>SKS</th>
-<th>Kelas</th><th>Hari, Jam</th><th>Ruang</th><th>Pengajar</th>
-</tr>
+<h2>Data Jadwal</h2>
 
-<tr><td>1</td><td>IT202</td><td>Kalkulus 2</td><td>3</td><td>TI2A</td><td>Senin, 08:00-10:30</td><td>2.2.4</td><td>R Burham I. F., S.Si., M.Kom</td></tr>
-<tr><td>2</td><td>IF901</td><td>Algoritma dan Struktur Data</td><td>4</td><td>TI2A</td><td>Senin, 13:00-16:20</td><td>LAB.3</td><td>Eza Budi Perkasa, M.Kom</td></tr>
-<tr><td>3</td><td>IT311</td><td>Pemrograman Web Terstruktur</td><td>3</td><td>TI2A</td><td>Selasa, 10:30-13:00</td><td>LAB.3</td><td>Delpiah W., S.Kom., M.Kom</td></tr>
-<tr><td>4</td><td>IT305</td><td>Sistem Manajemen Basis Data</td><td>3</td><td>TI2A</td><td>Rabu, 10:30-13:00</td><td>2.2.4</td><td>Melati Suci M., M.Kom</td></tr>
-<tr><td>5</td><td>IT306</td><td>Desain dan Pemrograman Mobile</td><td>3</td><td>TI2A</td><td>Kamis, 08:00-10:30</td><td>LAB.4</td><td>Rezky Yuranda, M.Kom</td></tr>
-<tr><td>6</td><td>UM301</td><td>English For Business</td><td>2</td><td>TI2A</td><td>Jumat, 08:00-09:40</td><td>1.2.1</td><td>Sinta S., S.Pd., M.Pd</td></tr>
-<tr><td>7</td><td>MT102</td><td>Agama</td><td>2</td><td>KRT</td><td>Jumat, 13:50-15:30</td><td>2.1.6</td><td>Shito Mulyatidani, M.Hum</td></tr>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Tabel Kehadiran Mahasiswa</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 70%;
-      margin: 20px auto;
-      font-family: Arial, sans-serif;
-    }
-    th, td {
-      border: 1px solid #333;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .alpa {
-      background-color: red;
-      color: white;
-    }
-    .izin {
-      background-color: yellow;
-      color: black;
-    }
-    .hadir {
-      background-color: green;
-      color: white;
-    }
-    select {
-      padding: 4px;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-  <h2 style="text-align:center;">Daftar Kehadiran Mahasiswa</h2>
-  <table>
-    <tr>
-      <th>No</th>
-      <th>Nama Mahasiswa</th>
-      <th>Status Kehadiran</th>
-    </tr>
+<div class="form-jadwal">
 
-    <tbody id="tabel-body">
-      
-    </tbody>
-  </table>
+<h3>
+<?= $edit=="" ? "Tambah Jadwal" : "Edit Jadwal" ?>
+</h3>
 
-  <script>
-    const tbody = document.getElementById("tabel-body");
-    const statusOptions = ["Hadir", "Izin", "Alpa"];
+<form method="POST" enctype="multipart/form-data">
 
-    
-    for (let i = 1; i <= 31; i++) {
-      const tr = document.createElement("tr");
+<input type="hidden" name="index" value="<?= $edit ?>">
+<input type="hidden" name="old" value="<?= $dataEdit['materi'] ?>">
 
-      
-      const tdNo = document.createElement("td");
-      tdNo.textContent = i;
-      tr.appendChild(tdNo);
+<div class="form-grid">
 
-      
-      const tdNama = document.createElement("td");
-      tdNama.textContent = String(i).padStart(3, "0");
-      tr.appendChild(tdNama);
+<div class="form-group">
 
-      
-      const tdStatus = document.createElement("td");
-      const select = document.createElement("select");
+<label>Kode Jadwal</label>
 
-      statusOptions.forEach(opt => {
-        const option = document.createElement("option");
-        option.value = opt.toLowerCase();
-        option.textContent = opt;
-        select.appendChild(option);
-      });
+<input
+type="text"
+name="kode"
+value="<?= $dataEdit['kode'] ?>"
+placeholder="Kode Jadwal">
 
-      
-      select.value = "hadir";
-      tdStatus.className = "hadir";
-
-      
-      select.addEventListener("change", function() {
-        tdStatus.className = this.value;
-      });
-
-      tdStatus.appendChild(select);
-      tr.appendChild(tdStatus);
-
-      tbody.appendChild(tr);
-    }
-  </script>
-</body>
-</html>
-
-</table>
 </div>
 
+<div class="form-group">
+
+<label>Guru / Dosen</label>
+
+<input
+type="text"
+name="pengajar"
+value="<?= $dataEdit['pengajar'] ?>"
+placeholder="Nama Pengajar">
+
+</div>
+
+<div class="form-group">
+
+<label>Mata Kuliah</label>
+
+<input
+type="text"
+name="matkul"
+value="<?= $dataEdit['matkul'] ?>"
+placeholder="Mata Kuliah">
+
+</div>
+
+<div class="form-group">
+
+<label>Kelas</label>
+
+<input
+type="text"
+name="kelas"
+value="<?= $dataEdit['kelas'] ?>"
+placeholder="Kelas">
+
+</div>
+
+<div class="form-group">
+
+<label>Hari / Jam</label>
+
+<input
+type="text"
+name="jam"
+value="<?= $dataEdit['jam'] ?>"
+placeholder="Senin 08:00-10:30">
+
+</div>
+
+<div class="form-group">
+
+<label>Ruang</label>
+
+<input
+type="text"
+name="ruang"
+value="<?= $dataEdit['ruang'] ?>"
+placeholder="Ruang">
+
+</div>
+
+<div class="form-group" style="grid-column:1/3;">
+
+<label>Upload Materi</label>
+
+<input type="file" name="materi">
+
+</div>
+
+</div>
+
+<hr>
+
+<h3>Tambah Detail Jadwal</h3>
+
+<div id="detail-container">
+
+<?php
+
+if(count($dataEdit['detail_jadwal']) > 0):
+
+foreach($dataEdit['detail_jadwal'] as $d):
+
+?>
+
+<div class="detail-row">
+
+<select name="detail_mapel[]">
+
+<option value="">--Pilih Mapel--</option>
+
+<option
+value="<?= $d['mapel'] ?>"
+selected
+> 
+<?=$d['mapel'] ?>
+</option>
+
+</select>
+
+<select name="detail_hari[]">
+
+<option value="">--Pilih Hari--</option>
+
+<?php
+
+$hari = [
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat"
+];
+
+foreach($hari as $h):
+
+?>
+
+<option
+value="<?= $h ?>"
+<?= $d['hari']==$h ? 'selected' : '' ?>
+> 
+<?=$h ?>
+</option>
+
+<?php endforeach; ?>
+
+</select>
+
+<select name="detail_jam[]">
+
+<option value="">--Pilih Jam--</option>
+
+<?php
+
+$jamList = [
+    "08:00-10:30",
+    "10:30-13:00",
+    "13:00-16:20"
+];
+
+foreach($jamList as $j):
+
+?>
+
+<option
+value="<?= $j ?>"
+<?= $d['jam']==$j ? 'selected' : '' ?>
+> 
+<?=$j ?>
+</option>
+
+<?php endforeach; ?>
+
+</select>
+
+<input
+type="text"
+name="detail_kelas[]"
+placeholder="Kelas"
+value="<?= $d['kelas'] ?>"
+>
+
+</div>
+
+<?php
+endforeach;
+else:
+?>
+
+<div class="detail-row">
+
+<select name="detail_mapel[]">
+
+<option value="">--Pilih Mapel--</option>
+
+<option value="Kalkulus 2">Kalkulus 2</option>
+<option value="Basis Data">Basis Data</option>
+<option value="Pemrograman Web">Pemrograman Web</option>
+<option value="Algoritma">Algoritma</option>
+
+</select>
+
+<select name="detail_hari[]">
+
+<option value="">--Pilih Hari--</option>
+
+<option value="Senin">Senin</option>
+<option value="Selasa">Selasa</option>
+<option value="Rabu">Rabu</option>
+<option value="Kamis">Kamis</option>
+<option value="Jumat">Jumat</option>
+
+</select>
+
+<select name="detail_jam[]">
+
+<option value="">--Pilih Jam--</option>
+
+<option value="08:00-10:30">08:00-10:30</option>
+<option value="10:30-13:00">10:30-13:00</option>
+<option value="13:00-16:20">13:00-16:20</option>
+
+</select>
+
+<input
+type="text"
+name="detail_kelas[]"
+placeholder="Kelas"
+>
+
+</div>
+
+<?php endif; ?>
+
+</div>
+
+<button
+type="button"
+class="btn-detail"
+onclick="tambahDetail()"
+> 
++Tambah Mapel
+</button>
+
+<br><br>
+
+<button class="btn-simpan" name="simpan">
+
+<?= $edit=="" ? "Simpan" : "Update" ?>
+
+</button>
+
+</form>
+
+</div>
+
+<hr>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+<tr>
+
+<th>No</th>
+<th>Kode</th>
+<th>Mata Kuliah</th>
+<th>Kelas</th>
+<th>Hari/Jam</th>
+<th>Ruang</th>
+<th>Dosen</th>
+<th>Aksi</th>
+
+</tr>
+
+<?php foreach($json['jadwal'] as $i => $j): ?>
+
+<tr>
+
+<td><?= $i+1 ?></td>
+<td><?= $j['kode'] ?></td>
+<td><?= $j['matkul'] ?></td>
+<td><?= $j['kelas'] ?></td>
+<td><?= $j['jam'] ?></td>
+<td><?= $j['ruang'] ?></td>
+<td><?= $j['pengajar'] ?></td>
+
+<td>
+
+<a href="?edit=<?= $i ?>">Edit</a>
+
+|
+
+<a href="?hapus=<?= $i ?>">Hapus</a>
+
+</td>
+
+</tr>
+
+<?php endforeach; ?>
+
+</table>
+
+</div>
+
+<script>
+
+function tambahDetail(){
+
+    let html = `
+
+    <div class="detail-row">
+
+        <select name="detail_mapel[]">
+
+            <option value="">--Pilih Mapel--</option>
+
+            <option value="Kalkulus 2">Kalkulus 2</option>
+            <option value="Basis Data">Basis Data</option>
+            <option value="Pemrograman Web">Pemrograman Web</option>
+            <option value="Algoritma">Algoritma</option>
+
+        </select>
+
+        <select name="detail_hari[]">
+
+            <option value="">--Pilih Hari--</option>
+
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+
+        </select>
+
+        <select name="detail_jam[]">
+
+            <option value="">--Pilih Jam--</option>
+
+            <option value="08:00-10:30">08:00-10:30</option>
+            <option value="10:30-13:00">10:30-13:00</option>
+            <option value="13:00-16:20">13:00-16:20</option>
+
+        </select>
+
+        <input
+        type="text"
+        name="detail_kelas[]"
+        placeholder="Kelas">
+
+    </div>
+
+    `;
+
+    document
+    .getElementById("detail-container")
+    .insertAdjacentHTML("beforeend", html);
+
+}
+
+</script>
+
 <?php include "partials/footer.php"; ?>
+
 </body>
+
 </html>
